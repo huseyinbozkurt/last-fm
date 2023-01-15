@@ -5,27 +5,32 @@ import "./ArtistDetail.css";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../store";
 import { AlbumsData, TracksData, useAppDispatch } from "../../store/helpers";
-import { selectAlbums, fetchAlbumsAsync } from "../../store/slices/albums-slice";
-import { selectTracks, fetchTopTracksAsync } from "../../store/slices/tracks-slice";
-
+import {
+  selectAlbums,
+  fetchAlbumsAsync,
+} from "../../store/slices/albums-slice";
+import {
+  selectTracks,
+  fetchTopTracksAsync,
+} from "../../store/slices/tracks-slice";
 
 interface ArtistDetailProps {
   darkMode: boolean;
   albums: Array<AlbumsData>;
-  tracks: Array<TracksData>
+  tracks: Array<TracksData>;
 }
 
 function ArtistDetail({ darkMode, albums, tracks }: ArtistDetailProps) {
   const dispatch = useAppDispatch();
-  const params = useParams<{ name: string}>();
+  const params = useParams<{ name: string }>();
   console.log(params);
   useEffect(() => {
     const albumData = async () => {
-      dispatch(fetchAlbumsAsync(params.name!))
+      dispatch(fetchAlbumsAsync(params.name!));
     };
     albumData();
     const trackData = async () => {
-      dispatch(fetchTopTracksAsync(params.name!))
+      dispatch(fetchTopTracksAsync(params.name!));
     };
     trackData();
   }, [params.name]);
@@ -39,7 +44,11 @@ function ArtistDetail({ darkMode, albums, tracks }: ArtistDetailProps) {
               <span className="visually-hidden">Loading...</span>
             </div>
           ) : (
-            <img src={albums[0].image[2]["#text"]} className="img-fluid rounded" alt="Artist" />
+            <img
+              src={albums[0].image[2]["#text"]}
+              className="img-fluid rounded"
+              alt="Artist"
+            />
           )}
         </div>
         <div className="col-9">
@@ -112,9 +121,9 @@ const mapStateToProps = (state: RootState) => {
   return {
     albums: selectAlbums(state),
     tracks: selectTracks(state),
-  } 
-}
+  };
+};
 
-const connectedArtistDetail = connect(mapStateToProps)(ArtistDetail)
+const connectedArtistDetail = connect(mapStateToProps)(ArtistDetail);
 
 export default connectedArtistDetail;

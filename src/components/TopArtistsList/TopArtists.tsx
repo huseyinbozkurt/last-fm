@@ -4,12 +4,15 @@ import "./TopArtists.css";
 import { Link } from "react-router-dom";
 import Card from "../Card/Card";
 import { ArtistData, useAppDispatch } from "../../store/helpers";
-import { selectArtists, fetchArtistsAsync } from "../../store/slices/artists-slice";
+import {
+  selectArtists,
+  fetchArtistsAsync,
+} from "../../store/slices/artists-slice";
 import { RootState } from "../../store";
 
 interface TopArtistsProps {
-  darkMode: boolean,
-  artists: Array<ArtistData>
+  darkMode: boolean;
+  artists: Array<ArtistData>;
 }
 
 function TopArtists({ darkMode, artists }: TopArtistsProps) {
@@ -55,12 +58,12 @@ function TopArtists({ darkMode, artists }: TopArtistsProps) {
     </div>
   );
 }
-const mapStateToProps = (state: RootState)=> {
+const mapStateToProps = (state: RootState) => {
   return {
-    artists: selectArtists(state)
-  }
-}
+    artists: selectArtists(state),
+  };
+};
 
-const connectedTopArtists = connect(mapStateToProps)(TopArtists)
+const connectedTopArtists = connect(mapStateToProps)(TopArtists);
 
 export default connectedTopArtists;
